@@ -1,0 +1,13 @@
+bash# 1. PostgreSQL
+psql -U postgres -c "CREATE DATABASE dreamplace;"
+
+# 2. Backend
+cd backend
+pip install -r requirements.txt
+cp .env.example .env   # edit DATABASE_URL
+python app.py          # starts at localhost:5000 + seeds data
+
+# 3. Frontend
+cd frontend
+python -m http.server 8080
+# open http://localhost:8080
