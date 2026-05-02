@@ -1,8 +1,5 @@
 import sqlite3, os
 
-# ✅ Run this script once to create dreamplace.db with all seed data
-# Usage:  python3 create_db.py
-# Place this file inside your  backend/  folder before running.
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dreamplace.db")
 conn = sqlite3.connect(DB_PATH)
