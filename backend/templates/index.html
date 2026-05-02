@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dream Place — Book your dream travel destinations with ease. Explore honeymoon packages, family tours, adventures and luxury escapes." />
+  <title>Dream Place | Your Ultimate Travel Booking Platform</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-container">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon">✈</span>
+      Dream<span class="logo-dot">Place</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"         class="nav-link">Home</a></li>
+      <li><a href="#destinations" class="nav-link">Destinations</a></li>
+      <li><a href="#packages"     class="nav-link">Packages</a></li>
+      <li><a href="#about"        class="nav-link">About Us</a></li>
+      <li><a href="#contact"      class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/login"  class="btn-nav-login">Log In</a>
+      <a href="/signup" class="btn-nav-signup">Sign Up Free</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero-section" id="home">
+  <div class="container">
+    <div class="hero-content reveal">
+      <span class="hero-tag">✦ Trusted by 10,000+ Happy Travellers</span>
+      <h1>Discover Your<br/><em>Dream Destination</em></h1>
+      <p>From tropical beach escapes to alpine adventures — Dream Place crafts personalised journeys you'll remember forever. Explore, book, and travel with confidence.</p>
+      <div class="hero-btns">
+        <a href="/signup" class="btn btn-primary"><i class="fa-solid fa-compass"></i> Start Exploring</a>
+        <a href="#packages"   class="btn btn-outline"><i class="fa-solid fa-map-location-dot"></i> View Packages</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating badges -->
+  <div class="hero-badge hero-badge-1">
+    <div class="hero-badge-icon">🏆</div>
+    <div class="hero-badge-text">
+      <strong>4.9 ★ Rating</strong>
+      <span>from 2,400+ reviews</span>
+    </div>
+  </div>
+  <div class="hero-badge hero-badge-2">
+    <div class="hero-badge-icon">🌍</div>
+    <div class="hero-badge-text">
+      <strong>52+ Destinations</strong>
+      <span>worldwide</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     STATS STRIP
+══════════════════════════════════════ -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-strip-grid">
+      <div class="stat-strip-item">
+        <div class="stat-num" id="cntTravellers">0</div>
+        <div class="stat-lbl">Happy Travellers</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-num" id="cntDest">0</div>
+        <div class="stat-lbl">Destinations</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-num" id="cntYears">0</div>
+        <div class="stat-lbl">Years of Excellence</div>
+      </div>
+      <div class="stat-strip-item">
+        <div class="stat-num" id="cntRating">4.9</div>
+        <div class="stat-lbl">Average Rating ★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════ -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Simple &amp; Easy</span>
+      <h2>How Dream Place Works</h2>
+      <p>Book your dream trip in four simple steps — from sign-up to boarding pass.</p>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">1</div>
+        <div class="step-icon">📋</div>
+        <h4>Create Your Account</h4>
+        <p>Sign up for free in under a minute. No credit card required to browse our full destination and package catalogue.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔍</div>
+        <h4>Browse &amp; Filter</h4>
+        <p>Explore 52+ destinations and 12+ packages filtered by type — honeymoon, family, adventure, luxury or group tour.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-num">3</div>
+        <div class="step-icon">📅</div>
+        <h4>Book Your Trip</h4>
+        <p>Select your package, choose your travel date, number of travellers and any special requirements. Confirm in seconds.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-num">4</div>
+        <div class="step-icon">🌏</div>
+        <h4>Travel &amp; Enjoy</h4>
+        <p>Our team handles everything — hotels, transfers, activities. You just show up and create beautiful memories.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FEATURED DESTINATIONS
+══════════════════════════════════════ -->
+<section class="featured-dest" id="destinations">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Popular Right Now</span>
+      <h2>Top Destinations</h2>
+      <p>Hand-picked places that promise wonder, warmth and unforgettable experiences.</p>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="dest-grid-home" id="destGridHome">
+      <!-- Populated by JS from API -->
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size:2rem; color:var(--gold);"></i>
+        <p style="margin-top:12px;">Loading destinations…</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/signup" class="btn btn-dark">Explore All 52+ Destinations →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PACKAGES PREVIEW
+══════════════════════════════════════ -->
+<section class="pkg-preview" id="packages">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Curated Journeys</span>
+      <h2>Featured Packages</h2>
+      <p>Every package is crafted with the finest hotels, seamless logistics, and hidden gems.</p>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="pkg-preview-grid" id="pkgPreviewGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size:2rem; color:var(--gold);"></i>
+        <p style="margin-top:12px;">Loading packages…</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/signup" class="btn btn-primary"><i class="fa-solid fa-star"></i> Sign Up to Book</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ABOUT US
+══════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <img class="about-img-main"
+             src="https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=700&h=560&q=80"
+             alt="Dream Place travel planning team" loading="lazy" />
+        <div class="about-float-card">
+          <div class="about-float-icon">🏆</div>
+          <div class="about-float-text">
+            <strong>15+ Years</strong>
+            <span>Crafting dream journeys</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text-side reveal reveal-delay-2">
+        <span class="section-tag">About Us</span>
+        <h2>We Turn Dream Trips into Cherished Memories</h2>
+        <p>Dream Place was founded in Hyderabad in 2009 with a simple belief: that every person deserves to experience the world's wonders without the stress of planning. We started as a small boutique travel agency and have grown into one of South India's most trusted travel platforms.</p>
+        <p>Today, our team of 35 passionate travel experts partners with local ground operators in 28 countries to curate completely personalised journeys for families, honeymooners, solo adventurers and corporate groups.</p>
+        <div class="about-features">
+          <div class="about-feature"><i class="fa-solid fa-circle-check about-feature-icon"></i> IATA accredited &amp; Ministry of Tourism certified</div>
+          <div class="about-feature"><i class="fa-solid fa-circle-check about-feature-icon"></i> 24/7 in-trip emergency support worldwide</div>
+          <div class="about-feature"><i class="fa-solid fa-circle-check about-feature-icon"></i> 100% transparent pricing — no hidden charges</div>
+          <div class="about-feature"><i class="fa-solid fa-circle-check about-feature-icon"></i> Best-price guarantee on all packages</div>
+          <div class="about-feature"><i class="fa-solid fa-circle-check about-feature-icon"></i> Responsible &amp; eco-conscious travel practices</div>
+        </div>
+        <div style="margin-top:30px; display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="/signup" class="btn btn-primary">Start Your Journey</a>
+          <a href="#contact" class="btn btn-dark">Talk to an Expert</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════ -->
+<section class="testi-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Real Stories</span>
+      <h2>What Our Travellers Say</h2>
+      <p>Over 10,000 happy travellers have shared their Dream Place experiences.</p>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Dream Place planned our Maldives honeymoon down to the last detail. The overwater villa, the sunset cruise, the beach dinner — everything was flawless. We didn't have to think about anything at all."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://i.pravatar.cc/100?img=47" alt="Preethi Rao" loading="lazy" />
+          <div>
+            <div class="testi-name">Preethi &amp; Karthik Rao</div>
+            <div class="testi-trip">Hyderabad → Maldives Honeymoon</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Booking through Dream Place's dashboard was so easy! I picked the package, chose our dates, entered 4 travellers and within hours we had a confirmation with our complete itinerary. The whole Europe trip was incredible."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://i.pravatar.cc/100?img=32" alt="Anita Mehta" loading="lazy" />
+          <div>
+            <div class="testi-name">Anita Mehta &amp; Family</div>
+            <div class="testi-trip">Bangalore → Europe Family Tour</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"As a solo traveller, I was nervous about booking alone. The Dream Place team checked on me throughout my Bali trip, arranged a brilliant guide and even sorted a surprise birthday cake at the villa. Truly above and beyond."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://i.pravatar.cc/100?img=12" alt="Rohan Joshi" loading="lazy" />
+          <div>
+            <div class="testi-name">Rohan Joshi</div>
+            <div class="testi-trip">Chennai → Bali Solo Adventure</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Talk to a Travel Expert</h3>
+        <p>Have a question or need a custom itinerary? Our team responds within 2 business hours.</p>
+        <div class="contact-info-items">
+          <div class="contact-info-item">
+            <div class="contact-info-ico"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="contact-info-text">
+              <strong>Our Office</strong>
+              <span>Plot 42, Road No. 12, Banjara Hills<br/>Hyderabad, Telangana 500034</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-ico"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-info-text">
+              <strong>Phone / WhatsApp</strong>
+              <span><a href="tel:+914023456789" style="color:var(--text-mid)">+91 40 2345 6789</a><br/>+91 98765 43210 (24/7 emergency)</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-ico"><i class="fa-solid fa-envelope"></i></div>
+            <div class="contact-info-text">
+              <strong>Email</strong>
+              <span><a href="mailto:hello@dreamplace.in" style="color:var(--text-mid)">hello@dreamplace.in</a></span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-ico"><i class="fa-regular fa-clock"></i></div>
+            <div class="contact-info-text">
+              <strong>Office Hours</strong>
+              <span>Mon – Fri: 9:00 AM – 7:00 PM<br/>Saturday: 10:00 AM – 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="#" class="contact-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="contact-social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="contact-social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="contact-social-btn"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="contact-social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="contact-form-card">
+          <h3 class="contact-form-title">Send Us a Message</h3>
+          <p class="contact-form-sub">We'll get back to you within 2 business hours.</p>
+          <form id="landingContactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cname">Your Name</label>
+                <input type="text" id="cname" placeholder="Priya Sharma" required />
+              </div>
+              <div class="form-group">
+                <label for="cemail">Email Address</label>
+                <input type="email" id="cemail" placeholder="priya@example.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="csubject">Subject</label>
+              <input type="text" id="csubject" placeholder="e.g. Honeymoon package enquiry" />
+            </div>
+            <div class="form-group">
+              <label for="cmsg">Message</label>
+              <textarea id="cmsg" placeholder="Tell us about your travel plans…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fa-solid fa-paper-plane"></i> &nbsp;Send Message
+            </button>
+            <div class="form-msg" id="landingContactMsg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CTA STRIP
+══════════════════════════════════════ -->
+<section style="padding:90px 0; background:linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); text-align:center; position:relative; overflow:hidden;">
+  <div style="position:absolute;top:-80px;left:-80px;width:320px;height:320px;border-radius:50%;border:70px solid rgba(200,151,58,.05);"></div>
+  <div style="position:absolute;bottom:-60px;right:-60px;width:250px;height:250px;border-radius:50%;border:55px solid rgba(200,151,58,.04);"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <h2 style="color:var(--white); margin-bottom:14px;">Ready to Start Your Adventure?</h2>
+    <p style="color:rgba(255,255,255,.65); margin-bottom:34px; font-size:1rem;">Create your free account today and unlock 12+ exclusive travel packages.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="/signup" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Create Free Account</a>
+      <a href="/login"  class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> Log In</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">✈ Dream<span style="color:var(--gold)">Place</span></div>
+          <p class="footer-tagline">Your ultimate travel booking platform. Crafting unforgettable journeys since 2009.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="/login">Log In</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Top Destinations</div>
+          <ul class="footer-links">
+            <li><a href="/signup">Bali, Indonesia</a></li>
+            <li><a href="/signup">Maldives</a></li>
+            <li><a href="/signup">Paris, France</a></li>
+            <li><a href="/signup">Santorini, Greece</a></li>
+            <li><a href="/signup">Dubai, UAE</a></li>
+            <li><a href="/signup">Swiss Alps</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Newsletter</div>
+          <p style="font-size:.83rem; color:rgba(255,255,255,.5); margin-bottom:10px;">Get exclusive deals and travel inspiration every week.</p>
+          <form class="footer-newsletter-form" id="footerNewsletterForm" novalidate>
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">Subscribe →</button>
+          </form>
+          <div style="margin-top:16px; font-size:.8rem; line-height:2; color:rgba(255,255,255,.5);">
+            <div>📞 <a href="tel:+914023456789" style="color:rgba(255,255,255,.5)">+91 40 2345 6789</a></div>
+            <div>📧 <a href="mailto:hello@dreamplace.in" style="color:rgba(255,255,255,.5)">hello@dreamplace.in</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Dream Place Travel Pvt. Ltd. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/js/api.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | Dream Place</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- LEFT PANEL -->
+  <div class="auth-left" style="background-image:url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=80');">
+    <div class="auth-left-content">
+      <a href="/" class="auth-logo">✈ Dream<span class="logo-dot">Place</span></a>
+      <div class="auth-hero-text">
+        <h2>Join 10,000+ Happy Travellers</h2>
+        <p>Create your free account in seconds and unlock the world's most beautiful destinations with curated packages designed just for you.</p>
+      </div>
+      <div class="auth-trust">
+        <div class="auth-trust-item"><i class="fa-solid fa-gift"></i> Free to sign up</div>
+        <div class="auth-trust-item"><i class="fa-solid fa-shield-halved"></i> Your data is safe</div>
+        <div class="auth-trust-item"><i class="fa-solid fa-bolt"></i> Book in minutes</div>
+        <div class="auth-trust-item"><i class="fa-solid fa-headset"></i> 24/7 support</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — FORM -->
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+      <h1 class="auth-form-title">Create Account</h1>
+      <p class="auth-form-sub">Already have an account? <a href="/login">Log in here</a></p>
+
+      <!-- Error Banner -->
+      <div class="auth-error-banner" id="signupError">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="signupErrorMsg">Something went wrong. Please try again.</span>
+      </div>
+
+      <form id="signupForm" novalidate>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div class="form-group-auth">
+            <label for="signupFName">First Name</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="signupFName" placeholder="Priya" autocomplete="given-name" />
+            </div>
+            <div class="field-error" id="signupFNameErr">Please enter your first name.</div>
+          </div>
+          <div class="form-group-auth">
+            <label for="signupLName">Last Name</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="signupLName" placeholder="Sharma" autocomplete="family-name" />
+            </div>
+            <div class="field-error" id="signupLNameErr">Please enter your last name.</div>
+          </div>
+        </div>
+
+        <div class="form-group-auth">
+          <label for="signupEmail">Email Address</label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" id="signupEmail" placeholder="priya@example.com" autocomplete="email" />
+          </div>
+          <div class="field-error" id="signupEmailErr">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group-auth">
+          <label for="signupPhone">Phone / WhatsApp <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" id="signupPhone" placeholder="+91 98765 43210" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-group-auth">
+          <label for="signupPassword">Password</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="signupPassword" placeholder="Minimum 8 characters" autocomplete="new-password" />
+            <span class="password-toggle" id="toggleSignupPwd" title="Show/hide password">
+              <i class="fa-regular fa-eye"></i>
+            </span>
+          </div>
+          <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+          <div class="strength-label" id="strengthLabel"></div>
+          <div class="field-error" id="signupPasswordErr">Password must be at least 8 characters.</div>
+        </div>
+
+        <div class="form-group-auth">
+          <label for="signupConfirm">Confirm Password</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="signupConfirm" placeholder="Re-enter your password" autocomplete="new-password" />
+          </div>
+          <div class="field-error" id="signupConfirmErr">Passwords do not match.</div>
+        </div>
+
+        <div style="margin:14px 0 20px; display:flex; align-items:flex-start; gap:10px;">
+          <input type="checkbox" id="agreeTerms" style="width:auto; margin-top:3px; accent-color:var(--gold);" />
+          <label for="agreeTerms" style="font-size:.82rem; color:var(--text-mid); cursor:pointer;">
+            I agree to Dream Place's <a href="#" style="color:var(--gold);">Terms of Service</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>. I consent to receive travel offers and updates via email.
+          </label>
+        </div>
+        <div class="field-error" id="agreeTermsErr" style="margin-top:-12px; margin-bottom:12px;">You must agree to the terms.</div>
+
+        <button type="submit" class="btn btn-primary btn-block auth-btn" id="signupBtn">
+          <span class="btn-text"><i class="fa-solid fa-user-plus"></i> &nbsp;Create Free Account</span>
+          <span class="auth-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Creating account…</span>
+        </button>
+
+      </form>
+
+      <div class="auth-divider"><span>OR</span></div>
+      <p style="text-align:center; font-size:.84rem; color:var(--text-mid);">
+        Already have an account? <a href="/login" style="color:var(--gold); font-weight:600;">Log in here →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/api.js"></script>
+<script src="/static/js/auth.js"></script>
+<script>
+  if (API.getToken()) window.location.href = '/dashboard';
+
+  // Password strength
+  const passEl    = document.getElementById('signupPassword');
+  const fillEl    = document.getElementById('strengthFill');
+  const labelEl   = document.getElementById('strengthLabel');
+  const levels    = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  const colours   = ['', '#E53E3E', '#ED8936', '#ECC94B', '#38A169'];
+  function getStrength(p) {
+    let s = 0;
+    if (p.length >= 8)  s++;
+    if (/[A-Z]/.test(p)) s++;
+    if (/[0-9]/.test(p)) s++;
+    if (/[^A-Za-z0-9]/.test(p)) s++;
+    return s;
+  }
+  passEl.addEventListener('input', () => {
+    const s = getStrength(passEl.value);
+    fillEl.style.width   = (s * 25) + '%';
+    fillEl.style.background = colours[s] || '';
+    labelEl.textContent  = passEl.value ? levels[s] || '' : '';
+  });
+
+  // Toggle passwords
+  function mkToggle(toggleId, inputId) {
+    document.getElementById(toggleId).addEventListener('click', function () {
+      const inp = document.getElementById(inputId);
+      const shown = inp.type === 'text';
+      inp.type = shown ? 'password' : 'text';
+      this.innerHTML = shown ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+    });
+  }
+  mkToggle('toggleSignupPwd', 'signupPassword');
+
+  function showError(msg) {
+    document.getElementById('signupError').classList.add('show');
+    document.getElementById('signupErrorMsg').textContent = msg;
+  }
+  function hideError() { document.getElementById('signupError').classList.remove('show'); }
+
+  // Field validators
+  const validators = {
+    signupFName:   { rule: v => v.trim().length >= 2,   errId: 'signupFNameErr' },
+    signupLName:   { rule: v => v.trim().length >= 2,   errId: 'signupLNameErr' },
+    signupEmail:   { rule: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), errId: 'signupEmailErr' },
+    signupPassword:{ rule: v => v.length >= 8,          errId: 'signupPasswordErr' },
+    signupConfirm: {
+      rule: v => v === document.getElementById('signupPassword').value && v.length >= 8,
+      errId: 'signupConfirmErr'
+    },
+  };
+  function validateField(id) {
+    const el = document.getElementById(id);
+    const vd = validators[id];
+    if (!el || !vd) return true;
+    const ok = vd.rule(el.value);
+    el.classList.toggle('error', !ok);
+    el.classList.toggle('success', ok);
+    document.getElementById(vd.errId).classList.toggle('show', !ok);
+    return ok;
+  }
+  Object.keys(validators).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('blur', () => validateField(id));
+      el.addEventListener('input', () => { if (el.classList.contains('error')) validateField(id); });
+    }
+  });
+
+  // Submit
+  document.getElementById('signupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    hideError();
+
+    const allValid = Object.keys(validators).map(id => validateField(id)).every(Boolean);
+    const agreed   = document.getElementById('agreeTerms').checked;
+    document.getElementById('agreeTermsErr').classList.toggle('show', !agreed);
+    if (!allValid || !agreed) return;
+
+    const btn = document.getElementById('signupBtn');
+    btn.querySelector('.btn-text').style.display = 'none';
+    btn.querySelector('.auth-spinner').style.display = 'inline';
+    btn.disabled = true;
+
+    const fullName = (document.getElementById('signupFName').value + ' ' + document.getElementById('signupLName').value).trim();
+
+    try {
+      const data = await API.register({
+        full_name: fullName,
+        email:     document.getElementById('signupEmail').value.trim(),
+        phone:     document.getElementById('signupPhone').value.trim(),
+        password:  document.getElementById('signupPassword').value,
+      });
+      API.saveAuth(data.token, data.user);
+      window.location.href = '/dashboard';
+    } catch (err) {
+      showError(err.message || 'Registration failed. Please try again.');
+      btn.querySelector('.btn-text').style.display = 'inline';
+      btn.querySelector('.auth-spinner').style.display = 'none';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

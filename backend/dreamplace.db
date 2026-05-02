@@ -1,0 +1,100 @@
+import sqlite3, os
+
+# ✅ Run this script once to create dreamplace.db with all seed data
+# Usage:  python3 create_db.py
+# Place this file inside your  backend/  folder before running.
+
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dreamplace.db")
+conn = sqlite3.connect(DB_PATH)
+cur  = conn.cursor()
+cur.execute("PRAGMA foreign_keys = OFF")
+
+# ── users ──────────────────────────────────
+cur.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id            INTEGER NOT NULL PRIMARY KEY,
+    full_name     VARCHAR(120) NOT NULL,
+    email         VARCHAR(200) NOT NULL UNIQUE,
+    phone         VARCHAR(20),
+    password_hash TEXT NOT NULL,
+    created_at    DATETIME
+)
+""")
+
+# ── destinations ──────────────────────────────────
+cur.execute("""
+CREATE TABLE IF NOT EXISTS destinations (
+    id          INTEGER NOT NULL PRIMARY KEY,
+    name        VARCHAR(120) NOT NULL,
+    country     VARCHAR(100) NOT NULL,
+    region      VARCHAR(50)  NOT NULL,
+    flag        VARCHAR(10),
+    image_url   TEXT,
+    description TEXT,
+    rating      FLOAT,
+    base_price  INTEGER NOT NULL,
+    nights      INTEGER
+)
+""")
+cur.executemany(
+    "INSERT OR IGNORE INTO destinations (id, name, country, region, flag, image_url, description, rating, base_price, nights) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+        (1, 'Bali', 'Indonesia', 'asia', '🇮🇩', 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80', 'Island of the Gods — temples, rice terraces, surf and spiritual retreats.', 4.9, 45000, 7),
+        (2, 'Maldives', 'Maldives', 'asia', '🇲🇻', 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80', 'Crystal lagoons, overwater villas and untouched coral reefs.', 4.9, 125000, 5),
+        (3, 'Paris', 'France', 'europe', '🇫🇷', 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=80', 'The City of Light — Eiffel, art, haute cuisine and romance.', 4.8, 95000, 6),
+        (4, 'Santorini', 'Greece', 'europe', '🇬🇷', 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80', 'Blue-domed churches, caldera sunsets and volcanic beaches.', 4.8, 115000, 7),
+        (5, 'Dubai', 'UAE', 'middleeast', '🇦🇪', 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', 'Futuristic skyline, desert safari, luxury malls and gold souks.', 4.7, 35000, 4),
+        (6, 'Tokyo', 'Japan', 'asia', '🇯🇵', 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80', 'Where ancient shrines meet neon districts and world-class ramen.', 4.8, 85000, 8),
+        (7, 'Kerala', 'India', 'asia', '🇮🇳', 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80', "God's Own Country — backwaters, spice gardens and Ayurveda.", 4.7, 18000, 5),
+        (8, 'Swiss Alps', 'Switzerland', 'europe', '🇨🇭', 'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80', 'Snow-capped peaks, glacier express trains and alpine villages.', 4.9, 185000, 8),
+    ]
+)
+
+# ── packages ──────────────────────────────────
+cur.execute("""
+CREATE TABLE IF NOT EXISTS packages (
+    id               INTEGER NOT NULL PRIMARY KEY,
+    destination_id   INTEGER NOT NULL REFERENCES destinations(id),
+    name             VARCHAR(200) NOT NULL,
+    category         VARCHAR(50)  NOT NULL,
+    description      TEXT,
+    price_per_person INTEGER NOT NULL,
+    nights           INTEGER,
+    includes         TEXT,
+    image_url        TEXT,
+    is_featured      BOOLEAN,
+    badge            VARCHAR(80)
+)
+""")
+cur.executemany(
+    "INSERT OR IGNORE INTO packages (id, destination_id, name, category, description, price_per_person, nights, includes, image_url, is_featured, badge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+        (1, 1, 'Bali Romance Package', 'honeymoon', 'Private pool villa, couples spa, sunset dinner in Ubud jungle.', 89999, 7, 'Return Flights,Private Pool Villa,Couples Spa,Breakfast Daily,Sunset Cruise,Private Transfers', 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80', 0, ''),
+        (2, 1, 'Bali Volcano & Surf', 'adventure', 'Mount Batur sunrise trek, white-water rafting, surf lessons and cooking class.', 62000, 6, 'Return Flights,Volcano Trek,Surf Lessons,River Rafting,Cooking Class,4-Star Hotel', 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80', 0, ''),
+        (3, 2, 'Maldives Overwater Escape', 'honeymoon', 'Overwater villa, private beach dinner, snorkelling over coral reefs.', 245999, 5, 'Return Flights,Overwater Villa,Full Board,Sunset Cruise,Snorkelling Trip,Speed Boat Transfers', 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=80', 1, '⭐ Best Seller'),
+        (4, 3, 'Paris City of Love', 'honeymoon', 'Eiffel Tower, Seine river cruise, Versailles and Michelin dining.', 95000, 6, 'Return Flights,4-Star Hotel,Breakfast Daily,Seine Cruise,Eiffel Tower Access,Airport Transfers', 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=600&q=80', 0, ''),
+        (5, 4, 'Santorini Sunset Escape', 'honeymoon', 'Caldera-view suites, catamaran cruise, wine tasting in Assyrtiko vineyards.', 220000, 6, 'Return Flights,Caldera Suite,Breakfast & Dinner,Catamaran Cruise,Wine Tasting,Airport Transfers', 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80', 0, ''),
+        (6, 5, 'Dubai Ultra Luxury', 'luxury', 'Burj Al Arab stay, helicopter city tour, Michelin-starred dining.', 350000, 4, 'Business Class Flights,7-Star Hotel,Helicopter Tour,Michelin Dining,Desert Safari,Luxury Car', 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80', 0, '👑 Ultra Luxury'),
+        (7, 7, 'Kerala Family Discovery', 'family', 'Houseboat on Alleppey backwaters, Munnar tea estates, wildlife safari.', 18999, 5, 'Flights Included,Houseboat Stay,All Meals,Wildlife Safari,AC Transport,Local Guide', 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80', 0, ''),
+        (8, 8, 'Swiss Alps Explorer', 'adventure', 'Jungfraujoch, glacier hiking, Interlaken paragliding, Glacier Express.', 185999, 7, 'Return Flights,Jungfraujoch Trip,Paragliding,Swiss Travel Pass,Alpine Hotels,English Guide', 'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=600&q=80', 0, ''),
+    ]
+)
+
+# ── bookings ──────────────────────────────────
+cur.execute("""
+CREATE TABLE IF NOT EXISTS bookings (
+    id           INTEGER NOT NULL PRIMARY KEY,
+    user_id      INTEGER NOT NULL REFERENCES users(id),
+    package_id   INTEGER NOT NULL REFERENCES packages(id),
+    travellers   INTEGER,
+    travel_date  DATE    NOT NULL,
+    total_amount INTEGER NOT NULL,
+    status       VARCHAR(20),
+    special_req  TEXT,
+    booked_at    DATETIME
+)
+""")
+
+conn.commit()
+conn.close()
+print(f"✅ dreamplace.db created at: {DB_PATH}")

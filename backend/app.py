@@ -1,15 +1,8 @@
-"""
-Dream Place Travel Agency — Flask Backend
-Database: PostgreSQL via SQLAlchemy
-Auth:      JWT tokens (flask-jwt-extended)
-"""
-
 import os
 from datetime import datetime, timedelta, date
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_cors import CORS
 from flask_jwt_extended import (
     JWTManager, create_access_token, jwt_required,
     get_jwt_identity, get_jwt
@@ -21,22 +14,21 @@ load_dotenv()
 # ─────────────────────────────────────────
 #  App & config
 # ─────────────────────────────────────────
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
-app.config['SECRET_KEY']                    = os.getenv('SECRET_KEY', 'dreamplace-secret-2025-change-in-production')
-app.config['SQLALCHEMY_DATABASE_URI']       = os.getenv(
-    'DATABASE_URL',
-    'postgresql://postgres:postgres@localhost:5432/dreamplace'
-)
+# ✅ SQLite instead of PostgreSQL
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SQLITE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'dreamplace.db')}"
+
+app.config['SECRET_KEY']                     = os.getenv('SECRET_KEY', 'dreamplace-secret-2025-change-in-production')
+app.config['SQLALCHEMY_DATABASE_URI']        = os.getenv('DATABASE_URL', SQLITE_URL)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY']                = os.getenv('JWT_SECRET_KEY', 'jwt-secret-dreamplace-2025')
-app.config['JWT_ACCESS_TOKEN_EXPIRES']      = timedelta(hours=24)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config['JWT_SECRET_KEY']                 = os.getenv('JWT_SECRET_KEY', 'jwt-secret-dreamplace-2025')
+app.config['JWT_ACCESS_TOKEN_EXPIRES']       = timedelta(hours=24)
 
 # Extensions
 db      = SQLAlchemy(app)
 bcrypt  = Bcrypt(app)
-cors    = CORS(app, resources={r"/api/*": {"origins": "*"}})
 jwt     = JWTManager(app)
 
 # Token blocklist (in-memory; swap to Redis/DB in production)
@@ -47,19 +39,38 @@ def check_if_revoked(jwt_header, jwt_payload):
     return jwt_payload["jti"] in BLOCKED_TOKENS
 
 # ─────────────────────────────────────────
+#  Frontend Routes  (serve HTML pages)
+# ─────────────────────────────────────────
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+@app.route('/signup')
+def signup_page():
+    return render_template('signup.html')
+
+@app.route('/dashboard')
+def dashboard_page():
+    return render_template('dashboard.html')
+
+# ─────────────────────────────────────────
 #  Models
 # ─────────────────────────────────────────
 class User(db.Model):
     __tablename__ = 'users'
 
-    id           = db.Column(db.Integer, primary_key=True)
-    full_name    = db.Column(db.String(120), nullable=False)
-    email        = db.Column(db.String(200), unique=True, nullable=False)
-    phone        = db.Column(db.String(20))
-    password_hash= db.Column(db.Text, nullable=False)
-    created_at   = db.Column(db.DateTime, default=datetime.utcnow)
+    id            = db.Column(db.Integer, primary_key=True)
+    full_name     = db.Column(db.String(120), nullable=False)
+    email         = db.Column(db.String(200), unique=True, nullable=False)
+    phone         = db.Column(db.String(20))
+    password_hash = db.Column(db.Text, nullable=False)
+    created_at    = db.Column(db.DateTime, default=datetime.utcnow)
 
-    bookings     = db.relationship('Booking', backref='user', lazy='dynamic')
+    bookings = db.relationship('Booking', backref='user', lazy='dynamic')
 
     def set_password(self, raw):
         self.password_hash = bcrypt.generate_password_hash(raw).decode('utf-8')
@@ -69,10 +80,10 @@ class User(db.Model):
 
     def to_dict(self):
         return {
-            'id':        self.id,
-            'full_name': self.full_name,
-            'email':     self.email,
-            'phone':     self.phone or '',
+            'id':           self.id,
+            'full_name':    self.full_name,
+            'email':        self.email,
+            'phone':        self.phone or '',
             'member_since': self.created_at.strftime('%B %Y')
         }
 
@@ -87,11 +98,11 @@ class Destination(db.Model):
     flag        = db.Column(db.String(10))
     image_url   = db.Column(db.Text)
     description = db.Column(db.Text)
-    rating      = db.Column(db.Numeric(2, 1), default=4.5)
+    rating      = db.Column(db.Float, default=4.5)
     base_price  = db.Column(db.Integer, nullable=False)   # INR per person
     nights      = db.Column(db.Integer, default=5)
 
-    packages    = db.relationship('Package', backref='destination', lazy='dynamic')
+    packages = db.relationship('Package', backref='destination', lazy='dynamic')
 
     def to_dict(self):
         return {
@@ -111,19 +122,19 @@ class Destination(db.Model):
 class Package(db.Model):
     __tablename__ = 'packages'
 
-    id              = db.Column(db.Integer, primary_key=True)
-    destination_id  = db.Column(db.Integer, db.ForeignKey('destinations.id'), nullable=False)
-    name            = db.Column(db.String(200), nullable=False)
-    category        = db.Column(db.String(50), nullable=False)   # honeymoon, family, adventure, luxury, group
-    description     = db.Column(db.Text)
-    price_per_person= db.Column(db.Integer, nullable=False)
-    nights          = db.Column(db.Integer, default=5)
-    includes        = db.Column(db.Text)     # comma-separated
-    image_url       = db.Column(db.Text)
-    is_featured     = db.Column(db.Boolean, default=False)
-    badge           = db.Column(db.String(80))
+    id               = db.Column(db.Integer, primary_key=True)
+    destination_id   = db.Column(db.Integer, db.ForeignKey('destinations.id'), nullable=False)
+    name             = db.Column(db.String(200), nullable=False)
+    category         = db.Column(db.String(50), nullable=False)
+    description      = db.Column(db.Text)
+    price_per_person = db.Column(db.Integer, nullable=False)
+    nights           = db.Column(db.Integer, default=5)
+    includes         = db.Column(db.Text)
+    image_url        = db.Column(db.Text)
+    is_featured      = db.Column(db.Boolean, default=False)
+    badge            = db.Column(db.String(80))
 
-    bookings        = db.relationship('Booking', backref='package', lazy='dynamic')
+    bookings = db.relationship('Booking', backref='package', lazy='dynamic')
 
     def to_dict(self):
         dest = self.destination
@@ -153,7 +164,7 @@ class Booking(db.Model):
     travellers   = db.Column(db.Integer, default=1)
     travel_date  = db.Column(db.Date, nullable=False)
     total_amount = db.Column(db.Integer, nullable=False)
-    status       = db.Column(db.String(20), default='confirmed')  # confirmed, cancelled, completed
+    status       = db.Column(db.String(20), default='confirmed')
     special_req  = db.Column(db.Text)
     booked_at    = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -161,20 +172,20 @@ class Booking(db.Model):
         pkg  = self.package
         dest = pkg.destination if pkg else None
         return {
-            'id':            self.id,
-            'package_id':    self.package_id,
-            'package_name':  pkg.name if pkg else '',
-            'destination':   dest.name if dest else '',
-            'flag':          dest.flag if dest else '',
-            'image_url':     pkg.image_url if pkg else '',
-            'category':      pkg.category if pkg else '',
-            'travellers':    self.travellers,
-            'travel_date':   self.travel_date.strftime('%d %b %Y'),
-            'nights':        pkg.nights if pkg else 0,
-            'total_amount':  self.total_amount,
-            'status':        self.status,
-            'special_req':   self.special_req or '',
-            'booked_at':     self.booked_at.strftime('%d %b %Y'),
+            'id':           self.id,
+            'package_id':   self.package_id,
+            'package_name': pkg.name if pkg else '',
+            'destination':  dest.name if dest else '',
+            'flag':         dest.flag if dest else '',
+            'image_url':    pkg.image_url if pkg else '',
+            'category':     pkg.category if pkg else '',
+            'travellers':   self.travellers,
+            'travel_date':  self.travel_date.strftime('%d %b %Y'),
+            'nights':       pkg.nights if pkg else 0,
+            'total_amount': self.total_amount,
+            'status':       self.status,
+            'special_req':  self.special_req or '',
+            'booked_at':    self.booked_at.strftime('%d %b %Y'),
         }
 
 
@@ -213,7 +224,7 @@ def seed_data():
             rating=4.8, base_price=85000, nights=8),
         Destination(name='Kerala', country='India', region='asia', flag='🇮🇳',
             image_url='https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80',
-            description='God\'s Own Country — backwaters, spice gardens and Ayurveda.',
+            description="God's Own Country — backwaters, spice gardens and Ayurveda.",
             rating=4.7, base_price=18000, nights=5),
         Destination(name='Swiss Alps', country='Switzerland', region='europe', flag='🇨🇭',
             image_url='https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80',
@@ -221,7 +232,7 @@ def seed_data():
             rating=4.9, base_price=185000, nights=8),
     ]
     db.session.add_all(destinations)
-    db.session.flush()   # get IDs
+    db.session.flush()
 
     packages = [
         Package(destination_id=destinations[0].id, name='Bali Romance Package',
@@ -283,7 +294,7 @@ def seed_data():
 # ─────────────────────────────────────────
 @app.route('/api/auth/register', methods=['POST'])
 def register():
-    data = request.get_json(silent=True) or {}
+    data      = request.get_json(silent=True) or {}
     full_name = data.get('full_name', '').strip()
     email     = data.get('email', '').strip().lower()
     phone     = data.get('phone', '').strip()
@@ -396,7 +407,7 @@ def create_booking():
 
     pkg_id      = data.get('package_id')
     travellers  = int(data.get('travellers', 1))
-    travel_date = data.get('travel_date')   # YYYY-MM-DD
+    travel_date = data.get('travel_date')
     special_req = data.get('special_req', '')
 
     if not pkg_id or not travel_date:
@@ -464,15 +475,15 @@ def cancel_booking(booking_id):
 def dashboard_stats():
     user_id  = int(get_jwt_identity())
     bookings = Booking.query.filter_by(user_id=user_id).all()
-    total      = len(bookings)
-    confirmed  = sum(1 for b in bookings if b.status == 'confirmed')
-    cancelled  = sum(1 for b in bookings if b.status == 'cancelled')
-    spent      = sum(b.total_amount for b in bookings if b.status != 'cancelled')
+    total     = len(bookings)
+    confirmed = sum(1 for b in bookings if b.status == 'confirmed')
+    cancelled = sum(1 for b in bookings if b.status == 'cancelled')
+    spent     = sum(b.total_amount for b in bookings if b.status != 'cancelled')
     return jsonify({
-        'total_bookings':    total,
-        'confirmed':         confirmed,
-        'cancelled':         cancelled,
-        'total_spent':       spent,
+        'total_bookings': total,
+        'confirmed':      confirmed,
+        'cancelled':      cancelled,
+        'total_spent':    spent,
     }), 200
 
 
