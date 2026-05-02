@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!destGrid) return;
       const featured = dests.slice(0, 6);
       destGrid.innerHTML = featured.map(d => `
-        <div class="dest-card-home reveal" onclick="window.location.href='signup.html'">
+        <div class="dest-card-home reveal" onclick="window.location.href='/signup'">
           <img src="${d.image_url}" alt="${d.name}" loading="lazy" />
           <div class="dest-card-overlay"></div>
           <div class="dest-card-info">
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <span class="pkg-price-amt">₹${p.price_per_person.toLocaleString('en-IN')}</span>
               <span class="pkg-price-pp"> / person · ${p.nights}N</span>
             </div>
-            <a href="signup.html" class="btn btn-primary btn-sm">Book Now</a>
+            <a href="/signup" class="btn btn-primary btn-sm">Book Now</a>
           </div>
         </div>`).join('');
       pkgGrid.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         img:'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=500&q=80' },
     ];
     return items.map(d => `
-      <div class="dest-card-home reveal" onclick="window.location.href='signup.html'">
+      <div class="dest-card-home reveal" onclick="window.location.href='/signup'">
         <img src="${d.img}" alt="${d.name}" loading="lazy" />
         <div class="dest-card-overlay"></div>
         <div class="dest-card-info">
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <span class="pkg-price-amt">₹${p.price}</span>
             <span class="pkg-price-pp"> / person · ${p.nights}N</span>
           </div>
-          <a href="signup.html" class="btn btn-primary btn-sm">Book Now</a>
+          <a href="/signup" class="btn btn-primary btn-sm">Book Now</a>
         </div>
       </div>`).join('');
   }
