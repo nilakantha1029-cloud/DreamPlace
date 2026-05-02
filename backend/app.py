@@ -24,7 +24,7 @@ DB_PATH = "/tmp/dreamplace.db"
 
 app.config['SECRET_KEY']                     = os.getenv('SECRET_KEY', 'dreamplace-secret-2025-change-in-production')
 # app.config['SQLALCHEMY_DATABASE_URI']        = os.getenv('DATABASE_URL', SQLITE_URL)
-p.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY']                 = os.getenv('JWT_SECRET_KEY', 'jwt-secret-dreamplace-2025')
 app.config['JWT_ACCESS_TOKEN_EXPIRES']       = timedelta(hours=24)
